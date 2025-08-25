@@ -1,9 +1,12 @@
+// IMPORTAÇÕES da API real
 import { authApiService } from '../services/authApi';
 import { User } from '../types/auth';
 
+// ESTADOS para dados da API
 const [doctors, setDoctors] = useState<User[]>([]);
 const [loadingDoctors, setLoadingDoctors] = useState(true);
 
+// CARREGAMENTO ao montar componente
 useEffect(() => {
   loadDoctors();
 }, []);
@@ -21,6 +24,7 @@ const loadDoctors = async () => {
   }
 };
 
+// CONVERSÃO de User[] para Doctor[]
 const convertUsersToDoctors = (users: User[]): Doctor[] => {
   return users.map(user => ({
     id: user.id,
@@ -32,11 +36,12 @@ const convertUsersToDoctors = (users: User[]): Doctor[] => {
   }));
 };
 
+// USO de dados reais
 {loadingDoctors ? (
   <ErrorText>Carregando médicos...</ErrorText>
 ) : (
   <DoctorList
-    doctors={convertUsersToDoctors(doctors)}
+    doctors={convertUsersToDoctors(doctors)} // Dados reais convertidos
     onSelectDoctor={setSelectedDoctor}
     selectedDoctorId={selectedDoctor?.id}
   />
